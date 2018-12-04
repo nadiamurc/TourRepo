@@ -1,0 +1,135 @@
+﻿@using Tour.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<section class="cid-r6K0Xgu5UA mbr-fullscreen mbr-parallax-background" id="header15-j" data-jarallax-original-styles="null" style="z-index: 0; position: relative; background-image: none; background-attachment: scroll; background-size: auto;">
+    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(7, 59, 76);"></div>
+
+    <div class="container align-right">
+        <div class="row">
+            <div class="mbr-white col-lg-8 col-md-7 content-container">
+                <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
+                    Log In FORM
+                </h1>
+                <p class="mbr-text pb-3 mbr-fonts-style display-5">
+                    Click any text to edit or style it. Select text to insert a link. Click blue "Gear" icon in the top right corner to hide/show  text, title and change the block or form background. Click red "+" in the bottom right corner to add a new block. Use the top left menu to create new pages, sites and add themes.
+                </p>
+            </div>
+            <div class="col-lg-4 col-md-5">
+                <div class="form-container">
+                    <div class="media-container-column" data-form-type="formoid">
+                        <div data-form-alert="" hidden="" class="align-center">
+                            Thanks for filling out the form!
+                        </div>
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                           
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            @*@Html.AntiForgeryToken()*@
+                            <h4>Use a local account to log in.</h4>
+                            <hr />
+                            <div data-for="email">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control px-3", @placeholder = "Email" })
+
+                                </div>
+                            </div>
+                            <div data-for="password">
+                                <div class="form-group">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control px-3", @placeholder = "Password" })
+                                </div>
+                            </div>
+                            <span class="input-group-btn">
+                                <button href="" type="submit" class="btn btn-secondary btn-form display-4">Log In</button>
+                            </span>
+
+                            <div data-for="socialLoginForm">
+                                <div class="form-group">
+                                    <section id="socialLoginForm">
+                                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                                    </section>
+                                </div>
+                            </div>
+
+                            <div data-for="password">
+                                <div class="form-group">
+                                    @Html.ActionLink("Register as a new user", "Register")
+                                </div>
+                            </div>
+
+                        
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>*@
+    </div>
+
+    <div id="jarallax-container-0" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -100;"><div style="background-position: 50% 50%; background-size: 100%; background-repeat: no-repeat; background-image: url(&quot;file:///C:/Dev/Templates/Forms/assets/images/02.jpg&quot;); position: fixed; top: 0px; left: 0px; width: 1647px; height: 1098px; overflow: hidden; pointer-events: none; margin-left: 0px; margin-top: -353px; visibility: visible; transform: translate3d(0px, 20.7px, 0px);"></div></div>
+</section>
+
+@*<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Use a local account to log in.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-default" />
+                    </div>
+                </div>
+                <p>
+                    @Html.ActionLink("Register as a new user", "Register")
+                </p>
+                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>*@
+            }
+        @*</section>
+    </div>
+    <div class="col-md-4">
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

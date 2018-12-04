@@ -1,0 +1,105 @@
+﻿@model Tour.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @*@Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Register" />
+        </div>
+    </div>*@
+}
+<section class="cid-r6K0Xgu5UA mbr-fullscreen mbr-parallax-background" id="header15-j" data-jarallax-original-styles="null" style="z-index: 0; position: relative; background-image: none; background-attachment: scroll; background-size: auto;">
+    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(7, 59, 76);"></div>
+
+    <div class="container align-right">
+        <div class="row">
+            <div class="mbr-white col-lg-8 col-md-7 content-container">
+                <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
+                    Register FORM
+                </h1>
+                <p class="mbr-text pb-3 mbr-fonts-style display-5">
+                    Click any text to edit or style it. Select text to insert a link. Click blue "Gear" icon in the top right corner to hide/show  text, title and change the block or form background. Click red "+" in the bottom right corner to add a new block. Use the top left menu to create new pages, sites and add themes.
+                </p>
+            </div>
+            <div class="col-lg-4 col-md-5">
+                <div class="form-container">
+                    <div class="media-container-column" data-form-type="formoid">
+                        <div data-form-alert="" hidden="" class="align-center">
+                            Thanks for filling out the form!
+                        </div>
+                       @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                       {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                            
+                            <div data-for="UserName">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control px-3", @placeholder = "User Name" })
+                                </div>
+                            </div>
+
+                            <div data-for="email">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control px-3", @placeholder = "Email" })
+                                   
+                                </div>
+                            </div>
+                            <div data-for="password">
+                                <div class="form-group">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control px-3", @placeholder = "Password" })
+                                </div>
+                            </div>
+                            <div data-for="password">
+                                <div class="form-group">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control px-3", @placeholder = "Confirm Password" })
+                                </div>
+                            </div>
+
+                            @*<div data-for="phone">
+                                <div class="form-group">
+                                    <input type="tel" class="form-control px-3" name="phone" data-form-field="Phone" placeholder="Phone" id="phone-header15-j">
+                                </div>
+                            </div>*@
+
+                            <span class="input-group-btn">
+                                <button href="" type="submit" class="btn btn-secondary btn-form display-4">Register</button>
+                            </span>
+                       }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="jarallax-container-0" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -100;"><div style="background-position: 50% 50%; background-size: 100%; background-repeat: no-repeat; background-image: url(&quot;file:///C:/Dev/Templates/Forms/assets/images/02.jpg&quot;); position: fixed; top: 0px; left: 0px; width: 1647px; height: 1098px; overflow: hidden; pointer-events: none; margin-left: 0px; margin-top: -353px; visibility: visible; transform: translate3d(0px, 20.7px, 0px);"></div></div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
