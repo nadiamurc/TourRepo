@@ -1,2 +1,0 @@
-# TourRepo
-Dynamic Tour Creation

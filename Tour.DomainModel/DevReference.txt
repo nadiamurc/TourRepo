@@ -1,0 +1,77 @@
+﻿Separating entity classes from EDMX
+Again, in an enterprise level application where separation of concerns is of great importance you certainly want to have your domain logic and your data access logic in separate projects. In other words you want to move the generated model (Model.tt) to another project. This can easily be accomplished by following these steps:
+
+2. Add a new class library project (Mm.DomainModel) to the solution in Visual Studio.
+3. Open File Explorer (right-click on the solution in Visual Studio and choose the “Open Folder in File Explorer” option) and move the Model.tt file to the new project folder.
+4. Back in Visual Studio, include the Model.tt file in the new project by clicking on the “Show All Files” icon at the top of the Solution Explorer and then right-click on the Model.tt file and choose the “Include In Project” option.
+5. Delete the Model.tt file from the DAL project.
+6. For the template in the new domain model project to be able to find the model you then need to modify it to point to the correct EDMX path. You do this by setting the inputFile variable in the Model.tt template file to point to an explicit path where to find the model:
+
+const string inputFile = @"../Mm.DataAccessLayer/Model.edmx";
+Once you save the file the entity classes should be generated in the domain model project. Note that if you make any changes to the model in the DAL project later on you are required to explicitly update your model classes. By right-click on the Model.tt template file and choose “Run Custom Tool” the entity classes will be regenerated to reflect the latest changes to the model.
+
+7. As the context by default expects the entity classes to be in the same namespace, add a using statement for their new namespace to the Model.Context.tt template file in the DAL project:
+
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using Mm.DomainModel; <!-- Added -->
+<#
+if (container.FunctionImports.Any())
+{
+#>
+using System.Data.Objects;
+using System.Data.Objects.DataClasses;
+using System.Linq;
+<#
+}
+#>
+8. Finally, you need to add a reference from the DAL project to the domain model project in order for it to compile.
+
+DbContext
+In an EF-based application a context is responsible for tracking changes that are made to the entities after they have been loaded from the database. You then use the SaveChanges method on the context to persist the changes back to the database.
+
+By default EDMs created in Visual Studio 2012 generates simple POCO entity classes and a context that derives from DbContext and this is the recommended template unless you have a reason to use one of the others listed on MSDN here.
+
+The DbContext class was introduced in EF 4.1 and provides a simpler and more lightweight API compared to the EF 4.0 ObjectContext. However it simply acts like a wrapper around the ObjectContext and if you for some reason need the granular control of the latter you can implement an extension method – extension methods enable you to “add” methods to existing types without creating a new derived type – to be able to convert the DbContext to an ObjectContext through an adapter:
+
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Objects;
+ 
+namespace Mm.DataAccessLayer
+{
+    public static class DbContextExtensions
+    {
+        public static ObjectContext ToObjectContext(this DbContext dbContext)
+        {
+            return (dbContext as IObjectContextAdapter).ObjectContext;
+        }
+    }
+}
+Encapsulating data access into repositories
+A repository is responsible for encapsulating the data access code. It sits between the DAL and the business layer of the application to query the data source for data and map this data to an entity class, and it also persists changes in the entity classes back to the data source using the context.
+
+A repository typically implements an interface that provides a simple set of methods for the developer using the repository to code against. Using an interface the consumer doesn’t need to know anything about what happens behind the scenes, i.e. whether the DAL uses EF, another ORM or manually creating connections and commands to execute queries against a data source. Besides the abstraction it brings it’s also great if you are using dependency injection in your application.
+
+By using a generic repository for querying and persisting changes for your entity classes you can maximize code reuse. Below is a sample generic interface which provides methods to query for all entities, specific entities matching a given where predicate and a single entity as well as methods for inserting, updating and removing an arbitrary number of entities.
+
+9. Add the below interface named IGenericDataRepository to the Mm.DataAccessLayer project.
+
+using Mm.DomainModel;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+ 
+namespace Mm.DataAccessLayer
+{
+    public interface IGenericDataRepository<T> where T : class
+    {
+        IList<T> GetAll(params Expression<Func<T, object>>[] navigationProperties);
+        IList<T> GetList(Func<T, bool> where, params Expression<Func<T, object>>[] navigationProperties);
+        T GetSingle(Func<T, bool> where, params Expression<Func<T, object>>[] navigationProperties);
+        void Add(params T[] items);
+        void Update(params T[] items);
+        void Remove(params T[] items);
+    }
+}
