@@ -20,21 +20,24 @@ namespace Tour
                         
                         "~/Content/assets/ytplayer/jquery.mb.ytplayer.min.js",
                         "~/Content/assets/vimeoplayer/jquery.mb.vimeo_player.js",
-                        "~/Content/assets/bootstrapcarouselswipe/bootstrap-carousel-swipe.js",
+                        //"~/Content/assets/bootstrapcarouselswipe/bootstrap-carousel-swipe.js",
                         "~/Content/assets/touchswipe/jquery.touch-swipe.min.js",
                         "~/Content/assets/dropdown/js/script.min.js",
                         "~/Content/assets/masonry/masonry.pkgd.min.js",
                         "~/Content/assets/imagesloaded/imagesloaded.pkgd.min.js",
-                        "~/Content/assets/theme/js/script.js",
+                        //"~/Content/assets/theme/js/script.js",
                         "~/Content/assets/slidervideo/script.js",
-                        "~/Content/assets/gallery/player.min.js",
-                        "~/Content/assets/gallery/script.js"
+                        "~/Content/assets/gallery/player.min.js"
+                        //"~/Content/assets/gallery/script.js"
                         ));
-         
- 
+
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/jquery.validate.unobtrusive.min.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

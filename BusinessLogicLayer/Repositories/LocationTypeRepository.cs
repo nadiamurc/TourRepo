@@ -38,6 +38,14 @@ namespace BusinessLogicLayer.Repositories
             }
         }
 
+        public IList<CountyDetail> GetAllCounties()
+        {
+            using (var context = new DatabaseEntities())
+            {
+                return context.Set<CountyDetail>().ToList();
+            }
+        }
+
         public LocationType GetLocationTypeById(int Id)
         {
             using (var context = new DatabaseEntities())
@@ -52,6 +60,15 @@ namespace BusinessLogicLayer.Repositories
             using (var context = new DatabaseEntities())
             {
                 context.LocationTypes.Add(locationType);
+                context.SaveChanges();
+            }
+        }
+
+        public void SaveLocationDetail(LocationDetail locationDetail)
+        {
+            using (var context = new DatabaseEntities())
+            {
+                context.LocationDetails.Add(locationDetail);
                 context.SaveChanges();
             }
         }

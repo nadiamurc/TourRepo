@@ -17,11 +17,14 @@ namespace Tour.DomainModel
         public int LocationDetails { get; set; }
         public string LocationTypeID { get; set; }
         public string LocationName { get; set; }
+        public string LocationDescription { get; set; }
         public string LocationAddress1 { get; set; }
         public string LocationAddress2 { get; set; }
         public string LocationAddress3 { get; set; }
         public string LocationTown { get; set; }
-        public string LocationCounty { get; set; }
+        public string LocationCountyValue { get; set; }
+        public string LocationEircode { get; set; }
+        public string LocationEmail { get; set; }
         public string LocationPhone { get; set; }
         public string LocationURL { get; set; }
         public byte[] LocationImage { get; set; }

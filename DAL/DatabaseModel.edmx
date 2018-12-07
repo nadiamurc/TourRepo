@@ -57,22 +57,29 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MyTourDublin.dbo.LocationDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MyTourDublin.dbo.CountyDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CountyDetail">
+          <Key>
+            <PropertyRef Name="CountyValue" />
+          </Key>
+          <Property Name="CountyValue" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CountyName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="LocationDetail">
           <Key>
             <PropertyRef Name="LocationDetails" />
-            <PropertyRef Name="LocationTypeID" />
-            <PropertyRef Name="LocationName" />
-            <PropertyRef Name="LocationAddress1" />
           </Key>
           <Property Name="LocationDetails" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocationTypeID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LocationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LocationDescription" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="LocationAddress1" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LocationAddress2" Type="nvarchar" MaxLength="50" />
           <Property Name="LocationAddress3" Type="nvarchar" MaxLength="50" />
           <Property Name="LocationTown" Type="nvarchar" MaxLength="50" />
-          <Property Name="LocationCounty" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationCountyValue" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationEircode" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="LocationPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="LocationURL" Type="nvarchar" MaxLength="50" />
           <Property Name="LocationImage" Type="image" />
@@ -150,21 +157,12 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="LocationDetail" EntityType="Self.LocationDetail" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="LocationDetail" EntityType="Self.LocationDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CountyDetail" EntityType="Self.CountyDetail" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [LocationDetail].[LocationDetails] AS [LocationDetails], 
-    [LocationDetail].[LocationTypeID] AS [LocationTypeID], 
-    [LocationDetail].[LocationName] AS [LocationName], 
-    [LocationDetail].[LocationAddress1] AS [LocationAddress1], 
-    [LocationDetail].[LocationAddress2] AS [LocationAddress2], 
-    [LocationDetail].[LocationAddress3] AS [LocationAddress3], 
-    [LocationDetail].[LocationTown] AS [LocationTown], 
-    [LocationDetail].[LocationCounty] AS [LocationCounty], 
-    [LocationDetail].[LocationPhone] AS [LocationPhone], 
-    [LocationDetail].[LocationURL] AS [LocationURL], 
-    [LocationDetail].[LocationImage] AS [LocationImage], 
-    [LocationDetail].[LocationGPS] AS [LocationGPS]
-    FROM [dbo].[LocationDetail] AS [LocationDetail]</DefiningQuery>
+    [CountyDetail].[CountyValue] AS [CountyValue], 
+    [CountyDetail].[CountyName] AS [CountyName]
+    FROM [dbo].[CountyDetail] AS [CountyDetail]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="LocationType" EntityType="Self.LocationType" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -291,29 +289,10 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="LocationDetails" EntityType="DatabaseModelNamespace.LocationDetail" />
           <EntitySet Name="LocationTypes" EntityType="DatabaseModelNamespace.LocationType" />
+          <EntitySet Name="CountyDetails" EntityType="DatabaseModelNamespace.CountyDetail" />
+          <EntitySet Name="LocationDetails" EntityType="DatabaseModelNamespace.LocationDetail" />
         </EntityContainer>
-        <EntityType Name="LocationDetail">
-          <Key>
-            <PropertyRef Name="LocationDetails" />
-            <PropertyRef Name="LocationTypeID" />
-            <PropertyRef Name="LocationName" />
-            <PropertyRef Name="LocationAddress1" />
-          </Key>
-          <Property Name="LocationDetails" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LocationTypeID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LocationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LocationAddress1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LocationAddress2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LocationAddress3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LocationTown" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LocationCounty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LocationPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LocationURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LocationImage" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="LocationGPS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="LocationType">
           <Key>
             <PropertyRef Name="LocationTypeID" />
@@ -321,6 +300,33 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
           </Key>
           <Property Name="LocationTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LocationTypeDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CountyDetail">
+          <Key>
+            <PropertyRef Name="CountyValue" />
+          </Key>
+          <Property Name="CountyValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LocationDetail">
+          <Key>
+            <PropertyRef Name="LocationDetails" />
+          </Key>
+          <Property Name="LocationDetails" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationTypeID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAddress1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAddress2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAddress3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationTown" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationCountyValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationEircode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="LocationGPS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -381,6 +387,22 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="LocationTypes">
+            <EntityTypeMapping TypeName="DatabaseModelNamespace.LocationType">
+              <MappingFragment StoreEntitySet="LocationType">
+                <ScalarProperty Name="LocationTypeDescription" ColumnName="LocationTypeDescription" />
+                <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CountyDetails">
+            <EntityTypeMapping TypeName="DatabaseModelNamespace.CountyDetail">
+              <MappingFragment StoreEntitySet="CountyDetail">
+                <ScalarProperty Name="CountyName" ColumnName="CountyName" />
+                <ScalarProperty Name="CountyValue" ColumnName="CountyValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LocationDetails">
             <EntityTypeMapping TypeName="DatabaseModelNamespace.LocationDetail">
               <MappingFragment StoreEntitySet="LocationDetail">
@@ -388,22 +410,17 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
                 <ScalarProperty Name="LocationImage" ColumnName="LocationImage" />
                 <ScalarProperty Name="LocationURL" ColumnName="LocationURL" />
                 <ScalarProperty Name="LocationPhone" ColumnName="LocationPhone" />
-                <ScalarProperty Name="LocationCounty" ColumnName="LocationCounty" />
+                <ScalarProperty Name="LocationEmail" ColumnName="LocationEmail" />
+                <ScalarProperty Name="LocationEircode" ColumnName="LocationEircode" />
+                <ScalarProperty Name="LocationCountyValue" ColumnName="LocationCountyValue" />
                 <ScalarProperty Name="LocationTown" ColumnName="LocationTown" />
                 <ScalarProperty Name="LocationAddress3" ColumnName="LocationAddress3" />
                 <ScalarProperty Name="LocationAddress2" ColumnName="LocationAddress2" />
                 <ScalarProperty Name="LocationAddress1" ColumnName="LocationAddress1" />
+                <ScalarProperty Name="LocationDescription" ColumnName="LocationDescription" />
                 <ScalarProperty Name="LocationName" ColumnName="LocationName" />
                 <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
                 <ScalarProperty Name="LocationDetails" ColumnName="LocationDetails" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LocationTypes">
-            <EntityTypeMapping TypeName="DatabaseModelNamespace.LocationType">
-              <MappingFragment StoreEntitySet="LocationType">
-                <ScalarProperty Name="LocationTypeDescription" ColumnName="LocationTypeDescription" />
-                <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

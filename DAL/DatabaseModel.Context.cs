@@ -9,10 +9,10 @@
 
 namespace DAL
 {
-    using Tour.DomainModel;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using Tour.DomainModel;
 
     public partial class DatabaseEntities : DbContext
     {
@@ -30,7 +30,8 @@ namespace DAL
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<LocationDetail> LocationDetails { get; set; }
         public virtual DbSet<LocationType> LocationTypes { get; set; }
+        public virtual DbSet<CountyDetail> CountyDetails { get; set; }
+        public virtual DbSet<LocationDetail> LocationDetails { get; set; }
     }
 }

@@ -13,6 +13,10 @@ namespace BusinessLogicLayer.Interfaces
         LocationType GetLocationTypeById(int Id);
 
         IList<LocationType> GetAllLocationTypes();
+
+        IList<CountyDetail> GetAllCounties();
+
         void SaveLocationType(LocationType locationType);
+        void SaveLocationDetail(LocationDetail locationDetail);
     }
 }
