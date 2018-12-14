@@ -18,5 +18,8 @@ namespace BusinessLogicLayer.Interfaces
 
         void SaveLocationType(LocationType locationType);
         void SaveLocationDetail(LocationDetail locationDetail);
+        IList<LocationDetail> GetAllLocationDetails();
+        LocationDetail GetLocationDetailById(int locationDetailsId);
+        void EditLocationDetail(LocationDetail locationDetail);
     }
 }

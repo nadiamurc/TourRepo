@@ -12,14 +12,15 @@ namespace Tour.DomainModel
     using System;
     using System.Collections.Generic;
     
-    public partial class LocationType
+    public partial class Tour
     {
-        public int LocationTypeID { get; set; }
-        public string LocationTypeDescription { get; set; }
-        public Nullable<System.DateTime> EditedOn { get; set; }
+        public int TourId { get; set; }
+        public string TourType { get; set; }
+        public int LocationDetailId { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string CreatedBy { get; set; }
-        public string EditBy { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public string EditedBy { get; set; }
+        public Nullable<System.DateTime> EditedOn { get; set; }
     }
 }

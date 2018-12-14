@@ -148,6 +148,12 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -238,6 +244,9 @@
     <Content Include="Content\assets\bootstrap\css\bootstrap-reboot.min.css" />
     <Content Include="Content\assets\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\assets\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\assets\datatables\css\data-tables.bootstrap4.min.css" />
+    <Content Include="Content\assets\datatables\js\data-tables.bootstrap4.min.js" />
+    <Content Include="Content\assets\datatables\js\jquery.data-tables.min.js" />
     <Content Include="Content\assets\dropdown\css\style.css" />
     <Content Include="Content\assets\dropdown\js\script.min.js" />
     <Content Include="Content\assets\gallery\player.min.js" />
@@ -284,6 +293,7 @@
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -392,6 +402,8 @@
     <Content Include="Views\Shared\_NavigationPartial.cshtml" />
     <Content Include="Views\UserAdmin\UserAdminPartials\_AddDetailsPartial.cshtml" />
     <Content Include="Views\Manage\ManagePartials\_manageChangePassword.cshtml" />
+    <Content Include="Views\UserAdmin\UserAdminPartials\_EditDetailsPartial.cshtml" />
+    <Content Include="Views\UserAdmin\UserAdminPartials\_DeleteDetailsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -407,6 +419,24 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\ConfigurationDrivenMaps.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\CustomMapStyles.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Microsoft.Maps.All.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Microsoft.Maps.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\Autosuggest.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\Clustering.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\Contour.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\DataBinning.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\Directions.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\DrawingTools.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\GeoJson.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\GeoXml.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\HeatMapLayer.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\Search.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\SpatialDataService.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\SpatialMath.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\Traffic.d.ts" />
+    <TypeScriptCompile Include="types\MicrosoftMaps\Modules\WellKnownText.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">

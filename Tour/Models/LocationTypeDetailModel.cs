@@ -7,6 +7,8 @@ namespace Tour.Models
 {
     public class LocationTypeDetailModel
     {
+        public int LocationTypeDetailsId { get; set; }
+
         [Required(ErrorMessage = "Location Name is required")]
         [DisplayName("Name *:")]
         public string LocationTypeName { get; set; }
@@ -43,7 +45,7 @@ namespace Tour.Models
         public string LocationTypeEmail { get; set; }
 
         [DisplayName("Image :")]
-        public byte[] LocationTypeImage { get; set; }
+        public HttpPostedFileBase LocationTypeImage { get; set; }
 
         [DisplayName("GPS :")]
         public string LocationTypeGPS { get; set; }
@@ -53,5 +55,14 @@ namespace Tour.Models
        
         [DisplayName("Select Location Type *:")]
         public SelectList LocationTypeList { get; set; }
+        [DisplayName("Latitude :")]
+        public int? LocationLatitude { get; internal set; }
+        [DisplayName("Longitude :")]
+        public int? LocationLongitude { get; internal set; }
+
+        [DisplayName("Is Active :")]
+        public bool? IsActive { get; set; }
+        public byte[] DisplayLocationTypeImage { get; internal set; }
     }
+
 }

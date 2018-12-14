@@ -27,8 +27,12 @@ namespace Tour
                         "~/Content/assets/imagesloaded/imagesloaded.pkgd.min.js",
                         //"~/Content/assets/theme/js/script.js",
                         "~/Content/assets/slidervideo/script.js",
-                        "~/Content/assets/gallery/player.min.js"
+                        "~/Content/assets/gallery/player.min.js",
+                        "~/Content/assets/datatables/js/data-tables.bootstrap4.min.js",
+                         "~/Content/assets/datatables/js/jquery.data-tables.min.js"
+
                         //"~/Content/assets/gallery/script.js"
+                       
                         ));
 
 
@@ -62,7 +66,9 @@ namespace Tour
                       "~/Content/assets/dropdown/css/style.css",
                       "~/Content/assets/theme/css/style.css",
                       "~/Content/assets/gallery/style.css",
-                      "~/Content/assets/mobirise/css/mbr-additional.css"));
+                      "~/Content/assets/datatables/css/data-tables.bootstrap4.min.css",
+                      "~/Content/assets/mobirise/css/mbr-additional.css"
+                      ));
         }
     }
 }

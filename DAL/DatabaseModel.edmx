@@ -67,9 +67,9 @@ warning 6002: The table/view 'MyTourDublin.dbo.CountyDetail' does not have a pri
         </EntityType>
         <EntityType Name="LocationDetail">
           <Key>
-            <PropertyRef Name="LocationDetails" />
+            <PropertyRef Name="LocationDetailsId" />
           </Key>
-          <Property Name="LocationDetails" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocationTypeID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LocationName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LocationDescription" Type="nvarchar" MaxLength="500" Nullable="false" />
@@ -83,7 +83,13 @@ warning 6002: The table/view 'MyTourDublin.dbo.CountyDetail' does not have a pri
           <Property Name="LocationPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="LocationURL" Type="nvarchar" MaxLength="50" />
           <Property Name="LocationImage" Type="image" />
-          <Property Name="LocationGPS" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationLongitude" Type="int" />
+          <Property Name="LocationLatitude" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="60" />
+          <Property Name="EditedBy" Type="nvarchar" MaxLength="60" />
+          <Property Name="EditedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -94,6 +100,24 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
           </Key>
           <Property Name="LocationTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocationTypeDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EditedOn" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="60" />
+          <Property Name="EditBy" Type="nvarchar" MaxLength="60" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tours">
+          <Key>
+            <PropertyRef Name="TourId" />
+          </Key>
+          <Property Name="TourId" Type="int" Nullable="false" />
+          <Property Name="TourType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LocationDetailId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="60" />
+          <Property Name="EditedBy" Type="nvarchar" MaxLength="60" />
+          <Property Name="EditedOn" Type="datetime" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -158,6 +182,7 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationDetail" EntityType="Self.LocationDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CountyDetail" EntityType="Self.CountyDetail" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [CountyDetail].[CountyValue] AS [CountyValue], 
@@ -167,7 +192,12 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
           <EntitySet Name="LocationType" EntityType="Self.LocationType" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [LocationType].[LocationTypeID] AS [LocationTypeID], 
-    [LocationType].[LocationTypeDescription] AS [LocationTypeDescription]
+    [LocationType].[LocationTypeDescription] AS [LocationTypeDescription], 
+    [LocationType].[EditedOn] AS [EditedOn], 
+    [LocationType].[CreatedOn] AS [CreatedOn], 
+    [LocationType].[CreatedBy] AS [CreatedBy], 
+    [LocationType].[EditBy] AS [EditBy], 
+    [LocationType].[IsActive] AS [IsActive]
     FROM [dbo].[LocationType] AS [LocationType]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -292,6 +322,7 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
           <EntitySet Name="LocationTypes" EntityType="DatabaseModelNamespace.LocationType" />
           <EntitySet Name="CountyDetails" EntityType="DatabaseModelNamespace.CountyDetail" />
           <EntitySet Name="LocationDetails" EntityType="DatabaseModelNamespace.LocationDetail" />
+          <EntitySet Name="Tours" EntityType="DatabaseModelNamespace.Tour" />
         </EntityContainer>
         <EntityType Name="LocationType">
           <Key>
@@ -300,6 +331,11 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
           </Key>
           <Property Name="LocationTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LocationTypeDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EditedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="EditBy" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="CountyDetail">
           <Key>
@@ -310,9 +346,9 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
         </EntityType>
         <EntityType Name="LocationDetail">
           <Key>
-            <PropertyRef Name="LocationDetails" />
+            <PropertyRef Name="LocationDetailsId" />
           </Key>
-          <Property Name="LocationDetails" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LocationTypeID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LocationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LocationDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -326,7 +362,26 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
           <Property Name="LocationPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LocationURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LocationImage" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="LocationGPS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationLongitude" Type="Int32" />
+          <Property Name="LocationLatitude" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="EditedBy" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="EditedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="TourId" />
+          </Key>
+          <Property Name="TourId" Type="Int32" Nullable="false" />
+          <Property Name="TourType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationDetailId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="EditedBy" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="EditedOn" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -390,6 +445,11 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
           <EntitySetMapping Name="LocationTypes">
             <EntityTypeMapping TypeName="DatabaseModelNamespace.LocationType">
               <MappingFragment StoreEntitySet="LocationType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="EditedOn" ColumnName="EditedOn" />
                 <ScalarProperty Name="LocationTypeDescription" ColumnName="LocationTypeDescription" />
                 <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
               </MappingFragment>
@@ -406,7 +466,13 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
           <EntitySetMapping Name="LocationDetails">
             <EntityTypeMapping TypeName="DatabaseModelNamespace.LocationDetail">
               <MappingFragment StoreEntitySet="LocationDetail">
-                <ScalarProperty Name="LocationGPS" ColumnName="LocationGPS" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EditedOn" ColumnName="EditedOn" />
+                <ScalarProperty Name="EditedBy" ColumnName="EditedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="LocationLatitude" ColumnName="LocationLatitude" />
+                <ScalarProperty Name="LocationLongitude" ColumnName="LocationLongitude" />
                 <ScalarProperty Name="LocationImage" ColumnName="LocationImage" />
                 <ScalarProperty Name="LocationURL" ColumnName="LocationURL" />
                 <ScalarProperty Name="LocationPhone" ColumnName="LocationPhone" />
@@ -420,7 +486,21 @@ warning 6002: The table/view 'MyTourDublin.dbo.LocationType' does not have a pri
                 <ScalarProperty Name="LocationDescription" ColumnName="LocationDescription" />
                 <ScalarProperty Name="LocationName" ColumnName="LocationName" />
                 <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
-                <ScalarProperty Name="LocationDetails" ColumnName="LocationDetails" />
+                <ScalarProperty Name="LocationDetailsId" ColumnName="LocationDetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tours">
+            <EntityTypeMapping TypeName="DatabaseModelNamespace.Tour">
+              <MappingFragment StoreEntitySet="Tours">
+                <ScalarProperty Name="EditedOn" ColumnName="EditedOn" />
+                <ScalarProperty Name="EditedBy" ColumnName="EditedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LocationDetailId" ColumnName="LocationDetailId" />
+                <ScalarProperty Name="TourType" ColumnName="TourType" />
+                <ScalarProperty Name="TourId" ColumnName="TourId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

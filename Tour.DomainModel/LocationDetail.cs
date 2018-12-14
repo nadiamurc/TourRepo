@@ -14,7 +14,7 @@ namespace Tour.DomainModel
     
     public partial class LocationDetail
     {
-        public int LocationDetails { get; set; }
+        public int LocationDetailsId { get; set; }
         public string LocationTypeID { get; set; }
         public string LocationName { get; set; }
         public string LocationDescription { get; set; }
@@ -28,6 +28,12 @@ namespace Tour.DomainModel
         public string LocationPhone { get; set; }
         public string LocationURL { get; set; }
         public byte[] LocationImage { get; set; }
-        public string LocationGPS { get; set; }
+        public Nullable<int> LocationLongitude { get; set; }
+        public Nullable<int> LocationLatitude { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public string CreatedBy { get; set; }
+        public string EditedBy { get; set; }
+        public Nullable<System.DateTime> EditedOn { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

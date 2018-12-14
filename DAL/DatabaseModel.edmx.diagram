@@ -15,6 +15,7 @@
         <EntityTypeShape EntityType="DatabaseModelNamespace.LocationType" Width="1.5" PointX="8.5" PointY="0.875" />
         <EntityTypeShape EntityType="DatabaseModelNamespace.CountyDetail" Width="1.5" PointX="11.75" PointY="1.375" />
         <EntityTypeShape EntityType="DatabaseModelNamespace.LocationDetail" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DatabaseModelNamespace.Tour" Width="1.5" PointX="2.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,133 +1,110 @@
-﻿@model Tour.Models.UserAdminViewModel
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model Tour.Models.UserAdminViewModel
   {
     ViewBag.Title = "User Admin";
 }
 
 <h2>@ViewBag.Title.</h2>
-<section class="mbr-fullscreen mbr-parallax-background" id="header15-j" style="z-index: 0; position: relative; background-image: none; background-attachment: scroll; background-size: auto;">
-    @*<div class="container">
-        <div class="row justify-content-center">
-            <div class="title col-12 col-lg-4">
-                <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">
-                    Admin
-                </h2>
-                <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">
-                    Add items to the database.
+<section class="section-table cid-rbViYzxbEs" id="table1-z">
+    <div class="container container-table">
+        <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
+            Available Locations
+        </h2>
+        @*<h3 class="mbr-section-subtitle mbr-fonts-style align-center pb-5 mbr-light display-5">
+            Click blue "Gear" icon in the top right corner to hide/show search and info, change the the table background and other parameters.  In browser click on the table head to sort the table, use search to filter the table.
+        </h3>*@
+        <div class="table-wrapper">
+            <div class="container">
+                <div class="row search">
+                    <div class="col-md-6">
+                        @using (Html.BeginForm("Create", "UserAdmin", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @*@Html.AntiForgeryToken()*@
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary btn-form display-4">Create New</button>
+                            </span>
+                        }
 
-                </h3>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="dataTables_filter">
+                            @using (Html.BeginForm("Index", "UserAdmin", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @*@Html.AntiForgeryToken()*@
+                                @*<label class="searchInfo mbr-fonts-style display-7">Search:</label>
+                            <input type="text" class="form-control input-sm">*@
+                                @Html.TextBox("SearchString", "", new { @class = "form-control input-sm" })
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary btn-form display-4">Search</button>
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container scroll">
+                <table class="table isSearch" cellspacing="0">
+                    <thead>
+                        <tr class="table-heads ">
+                            <th class="head-item mbr-fonts-style display-7">
+                                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                            </th>
+                            <th class="head-item mbr-fonts-style display-7">
+                                DESCRIPTION
+                            </th>
+                            <th class="head-item mbr-fonts-style display-7">
+                                TOWN
+                            </th>
+                            <th class="head-item mbr-fonts-style display-7">
+                                URL
+                            </th>
+                            <th class="head-item mbr-fonts-style display-7">
+                                EDIT
+                            </th>
+                            <th class="head-item mbr-fonts-style display-7">
+                                DELETE
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.PagedList)
+                        {
+                        <tr>
+                            <td class="body-item mbr-fonts-style display-7">@item.LocationName</td>
+                            <td class="body-item mbr-fonts-style display-7">@item.LocationDescription</td>
+                            <td class="body-item mbr-fonts-style display-7">@item.LocationTown</td>
+                            <td class="body-item mbr-fonts-style display-7">@item.LocationURL</td>
+                            <td class="body-item mbr-fonts-style display-7">@item.LocationImage</td>
+                            
+                            <td class="body-item mbr-fonts-style display-7">@Html.ActionLink("Edit", "Edit", new { id = @item.LocationDetailsId })</td>
+                            <td class="body-item mbr-fonts-style display-7">@Html.ActionLink("Delete", "Delete", new { id = item.LocationDetailsId })</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <br />
+            Page @(Model.PageNumber < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model.PagedList, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            <div class="container table-info-container">
+                <div class="row info">
+                    <div class="col-md-6">
+                        <div class="dataTables_info mbr-fonts-style display-7">
+                            @*<span class="infoBefore">Showing</span>
+                        <span class="inactive infoRows"></span>
+                        <span class="infoAfter">entries</span>
+                        <span class="infoFilteredBefore">(filtered from</span>
+                        <span class="inactive infoRows"></span>
+                        <span class="infoFilteredAfter"> total entries)</span>*@
+                        </div>
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
             </div>
         </div>
-    </div>*@
-
-    <div class="container">
-        @*<div class="row justify-content-center">*@
-        
-
-            @using (Html.BeginForm("Create", "UserAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-        <fieldset>
-            <legend>Location Details</legend>
-            <bR />
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(m => m.UserName, new { @class = "form-control" })
-            <div class="row">
-                <div class="form-group col-lg-6">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeList, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.DropDownListFor(m => m.LocationTypeDetail.SelectedLocationTypeCode, Model.LocationTypeDetail.LocationTypeList, "-- Select Type --", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeList, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group col-lg-6">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeName, new { @class = "form-control-label mbr-fonts-style display-7" })
-
-                    @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeName, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-lg-12">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeDescription, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.TextAreaFor(m => m.LocationTypeDetail.LocationTypeDescription, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeDescription, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-lg-4">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeAddress1, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeAddress1, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeAddress1, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group col-lg-4">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeAddress2, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeAddress2, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeAddress2, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group col-lg-4">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeAddress3, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeAddress3, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeAddress3, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-lg-4">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeTown, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeTown, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeTown, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group col-lg-4">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeEirCode, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeEirCode, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeEirCode, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group col-lg-4">
-                    @Html.LabelFor(m => m.LocationTypeDetail.CountyList, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.DropDownListFor(m => m.LocationTypeDetail.SelectedLocationTypeCode, Model.LocationTypeDetail.CountyList, "-- Select County --", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.SelectedCounty, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-lg-4">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypePhone, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypePhone, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypePhone, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group col-lg-4">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeGPS, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeGPS, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeGPS, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-lg-4">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeURL, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeURL, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeURL, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group col-lg-4">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeEmail, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeEmail, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeEmail, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group col-lg-4">
-                    @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeImage, new { @class = "form-control-label mbr-fonts-style display-7" })
-                    @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeImage, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationTypeDetail.LocationTypeImage, "", new { @class = "text-danger" })
-                </div>
-
-            </div>
-
-        </fieldset>
-
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary btn-form display-4">SEND FORM</button>
-                    </span>
-
-
-
-            }
-      
-
-              
     </div>
-
 </section>
+

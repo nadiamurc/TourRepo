@@ -33,5 +33,6 @@ namespace DAL
         public virtual DbSet<LocationType> LocationTypes { get; set; }
         public virtual DbSet<CountyDetail> CountyDetails { get; set; }
         public virtual DbSet<LocationDetail> LocationDetails { get; set; }
+        public virtual DbSet<Tour> Tours { get; set; }
     }
 }

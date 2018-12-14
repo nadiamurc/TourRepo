@@ -11,8 +11,103 @@
     @Scripts.Render("~/bundles/jquery")
     @*@Scripts.Render("~/bundles/modernizr")*@
 
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap' async defer></script>
+   
+        <script type="text/javascript">
+
+            //var map, baseLayer, drawingManager;
+
+            //function GetMap() {
+            //    map = new Microsoft.Maps.Map('#myMap', {
+            //        credentials: 'Aq7hZhRpgJDPIBx23imXY3G768cvOAH1k2o75Ah18hEYrK_UqQjkm7G3pEbimkbg',
+            //         center: new Microsoft.Maps.Location(53.344457, -6.259306),
+            //        mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+            //        zoom: 14
+            //    });
+                
+              
+                //Load the DrawingTools module
+                //Microsoft.Maps.loadModule('Microsoft.Maps.DrawingTools', function () {
+                //    //Create a base layer to add drawn shapes.
+                //    baseLayer = new Microsoft.Maps.Layer();
+                //    map.layers.insert(baseLayer);
+
+                //    //Create an instance of the DrawingTools class and bind it to the map.
+                //    var tools = new Microsoft.Maps.DrawingTools(map);
+
+                //    //Show the drawing toolbar and enable editting on the map.
+                //    tools.showDrawingManager(function (manager) {
+                //        drawingManager = manager;
+
+                //        Microsoft.Maps.Events.addHandler(drawingManager, 'drawingEnded', function (e) {
+                //            //When use finisihes drawing a shape, removing it from the drawing layer and add it to the base layer.
+                //            var shapes = drawingManager.getPrimitives();
+
+                //            if (shapes) {
+                //                drawingManager.clear();
+                //                baseLayer.add(shapes);
+                //            }
+                //        });
+
+                //        Microsoft.Maps.Events.addHandler(drawingManager, 'drawingChanging', function (e) {
+                //            //When the drawing is changing, clear the base layer.
+                //            baseLayer.clear();
+                //        });
+                //    })
+                //});
+          //  }
+                //var map = null;
+                //var searchManager = null;
+                //function getMap() {
+                //    map = new Microsoft.Maps.Map(document.getElementById('myMap'),
+                //        { credentials: 'Aq7hZhRpgJDPIBx23imXY3G768cvOAH1k2o75Ah18hEYrK_UqQjkm7G3pEbimkbg' });
+                //}
+                //function createSearchManager() {
+                //    map.addComponent('searchManager', new Microsoft.Maps.Search.SearchManager(map));
+                //    searchManager = map.getComponent('searchManager');
+                //}
+                //function LoadSearchModule() {
+                //    Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: geocodeRequest })
+                //}
+                //function geocodeRequest() {
+                //    createSearchManager();
+                //    var where = document.getElementById('loc').value;
+                //    var userData = { name: 'Maps Test User', id: 'XYZ' };
+                //    var request =
+                //    {
+                //        where: where,
+                //        count: 5,
+                //        bounds: map.getBounds(),
+                //        callback: onGeocodeSuccess,
+                //        errorCallback: onGeocodeFailed,
+                //        userData: userData
+                //    };
+                //    searchManager.geocode(request);
+                //}
+                //function onGeocodeSuccess(result, userData) {
+                //    if (result) {
+                //        map.entities.clear();
+                //        var topResult = result.results && result.results[0];
+                //        if (topResult) {
+                //            var pushpin = new Microsoft.Maps.Pushpin(topResult.location, null);
+                //            map.setView({ center: topResult.location, zoom: 10 });
+                //            map.entities.push(pushpin);
+                //        }
+                //    }
+                //}
+                //function onGeocodeFailed(result, userData) {
+                //    alert('Geocode failed');
+                //}
+                //function check_enterkey(e) {
+                //    if (e.which == 13) {
+                //        LoadSearchModule();
+                //    }
+                //}
+    </script>
+
+
 </head>
-<body>
+<body >
     <section class="menu cid-r6IJHjwt1y" once="menu" id="menu1-f">
         @Html.Partial("_NavigationPartial")
     </section>

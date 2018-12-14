@@ -1,0 +1,137 @@
+﻿@using Tour.Models
+@model UserAdminViewModel
+
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="mbr-fullscreen mbr-parallax-background" id="header15-j" style="z-index: 0; position: relative; background-image: none; background-attachment: scroll; background-size: auto;">
+    <div class="container">
+        <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
+            Delete Location
+        </h2>
+        @using (Html.BeginForm("Delete", "UserAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <fieldset>
+                <legend>Location Details</legend>
+                <bR />
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(X => X.LocationTypeDetail.LocationTypeDetailsId)
+                @Html.HiddenFor(X => X.LocationTypeDetail.SelectedLocationTypeCode)
+                @Html.HiddenFor(X => X.LocationTypeDetail.SelectedCounty)
+
+                <div class="row">
+                    <div class="form-group col-lg-6">
+
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeList, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.DropDownListFor(m => m.LocationTypeDetail.SelectedLocationTypeCode, Model.LocationTypeDetail.LocationTypeList, new { @class = "form-control", @disabled = true })
+
+                    </div>
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeName, new { @class = "form-control-label mbr-fonts-style display-7" })
+
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeName, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-12">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeDescription, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextAreaFor(m => m.LocationTypeDetail.LocationTypeDescription, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeAddress1, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeAddress1, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeAddress2, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeAddress2, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeAddress3, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeAddress3, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeTown, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeTown, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeEirCode, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeEirCode, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.CountyList, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.DropDownListFor(m => m.LocationTypeDetail.SelectedCounty, Model.LocationTypeDetail.CountyList, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypePhone, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypePhone, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationLatitude, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationLatitude, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationLongitude, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationLongitude, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeURL, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeURL, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeEmail, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeEmail, new { @class = "form-control", @readonly = true })
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        @Html.LabelFor(m => m.LocationTypeDetail.LocationTypeImage, new { @class = "form-control-label mbr-fonts-style display-7" })
+                        @Html.TextBoxFor(m => m.LocationTypeDetail.LocationTypeImage, new { @class = "form-control", @readonly = true })
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-4">
+
+                    </div>
+                    <div class="form-group col-lg-4">
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary btn-form display-4">DELETE</button>
+                        </span>
+                    </div>
+
+                </div>
+            </fieldset>
+        }
+
+
+
+    </div>
+
+</section>
+
+

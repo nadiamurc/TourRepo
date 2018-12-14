@@ -68,6 +68,41 @@ namespace BusinessLogicLayer.Repositories
         {
             using (var context = new DatabaseEntities())
             {
+                if (locationDetail.LocationDetailsId == 0)
+                {
+                    context.LocationDetails.Add(locationDetail);
+                }
+                else
+                {
+                    context.Entry(locationDetail).State = EntityState.Modified;
+                }
+                
+                context.SaveChanges();
+            }
+        }
+
+        public IList<LocationDetail> GetAllLocationDetails()
+        {
+            using (var context = new DatabaseEntities())
+            {
+                return context.Set<LocationDetail>().Where(x=>x.IsActive == true).ToList();
+            }
+        }
+
+        public LocationDetail GetLocationDetailById(int locationDetailsId)
+        {
+            using (var context = new DatabaseEntities())
+            {
+                return context.LocationDetails.Find(locationDetailsId);
+               // return new LocationDetail();
+            }
+        }
+
+        public void EditLocationDetail(LocationDetail locationDetail)
+        {
+            using (var context = new DatabaseEntities())
+            {
+                context.Entry(locationDetail).State = EntityState.Modified;
                 context.LocationDetails.Add(locationDetail);
                 context.SaveChanges();
             }
